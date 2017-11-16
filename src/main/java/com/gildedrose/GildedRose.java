@@ -1,5 +1,8 @@
 package com.gildedrose;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class GildedRose {
     public static final String AGED_BRIE = "Aged Brie";
     public static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
@@ -11,19 +14,20 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
-            updateNormalItem(items[i]);
+        List<Item> updatedItems = new ArrayList<>();
+        for (Item item : items) {
+            Item updatedItem = item;
+            updatedItem = updateNormalItem(updatedItem);
+            updatedItem = updateQualityForBackStage(updatedItem);
+            updatedItem = updateQualityForAgedBrie(updatedItem);
 
-            updateQualityForBackStage(items[i]);
-            updateQualityForAgedBrie(items[i]);
+            updatedItem = updateSellInForSulfuras(updatedItem);
 
-            updateSulfurasSellIn(items[i]);
-
-            updateWhenNoSellin(items[i]);
+            updatedItems.add(updateWhenNoSellin(updatedItem));
         }
     }
 
-    private void updateWhenNoSellin(Item item) {
+    private Item updateWhenNoSellin(Item item) {
         if (item.sellIn < 0) {
             if (!item.name.equals(AGED_BRIE)) {
                 if (!item.name.equals(BACKSTAGE_PASSES)) {
@@ -33,7 +37,7 @@ class GildedRose {
                         }
                     }
                 } else {
-                    item.quality = item.quality - item.quality;
+                    item.quality = 0;
                 }
             } else {
                 if (item.quality < 50) {
@@ -41,21 +45,26 @@ class GildedRose {
                 }
             }
         }
+
+        return item;
     }
 
-    private void updateSulfurasSellIn(Item item) {
+    private Item updateSellInForSulfuras(Item item) {
         if (!item.name.equals(SULFURAS_HAND)) {
             item.sellIn = item.sellIn - 1;
         }
+        return item;
     }
 
-    private void updateQualityForAgedBrie(Item item) {
+    private Item updateQualityForAgedBrie(Item item) {
         if (item.quality < 50 && item.name.equals(AGED_BRIE) ) {
             item.quality += 1;
         }
+
+        return item;
     }
 
-    private void updateQualityForBackStage(Item item) {
+    private Item updateQualityForBackStage(Item item) {
         if (item.quality < 50 && item.name.equals(BACKSTAGE_PASSES)) {
             item.quality += 1;
 
@@ -65,9 +74,11 @@ class GildedRose {
                 item.quality += incrementWhenSellin6days;
             }
         }
+
+        return item;
     }
 
-    private void updateNormalItem(Item item) {
+    private Item updateNormalItem(Item item) {
         if (!item.name.equals(AGED_BRIE)
                 && !item.name.equals(BACKSTAGE_PASSES)) {
             if (item.quality > 0) {
@@ -76,5 +87,7 @@ class GildedRose {
                 }
             }
         }
+
+        return item;
     }
 }
