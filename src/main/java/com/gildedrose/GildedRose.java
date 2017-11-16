@@ -14,7 +14,8 @@ class GildedRose {
         for (int i = 0; i < items.length; i++) {
             updateNormalItem(items[i]);
 
-            updateBackstateAndAgeBrie(items[i]);
+            updateQualityForBackStage(items[i]);
+            updateQualityForAgedBrie(items[i]);
 
             updateSulfurasSellIn(items[i]);
 
@@ -48,38 +49,22 @@ class GildedRose {
         }
     }
 
-    private void updateBackstateAndAgeBrie(Item item) {
-        if (item.name.equals(BACKSTAGE_PASSES)) {
-            updateQualityWheQualityLessThan50ForBackStage(item);
-        }
-
-        if (item.name.equals(AGED_BRIE) ) {
-            updateQualityWheQualityLessThan50ForAgedBrie(item);
+    private void updateQualityForAgedBrie(Item item) {
+        if (item.quality < 50 && item.name.equals(AGED_BRIE) ) {
+            item.quality += 1;
         }
     }
 
-    private void updateQualityWheQualityLessThan50ForBackStage(Item item) {
-        if (item.quality >= 50) {
-            return;
-        }
+    private void updateQualityForBackStage(Item item) {
+        if (item.quality < 50 && item.name.equals(BACKSTAGE_PASSES)) {
+            item.quality += 1;
 
-        item.quality += 1;
-
-        if (item.quality < 50) {
-            if (item.sellIn < 11) {
-                item.quality = item.quality + 1;
-            }
-            if (item.sellIn < 6) {
-                item.quality = item.quality + 1;
+            if (item.quality < 50) {
+                int incrementWhenSellin11days = item.sellIn < 11 ? 1 : 0;
+                int incrementWhenSellin6days = item.sellIn < 6 ? 1 + incrementWhenSellin11days: incrementWhenSellin11days;
+                item.quality += incrementWhenSellin6days;
             }
         }
-    }
-
-    private void updateQualityWheQualityLessThan50ForAgedBrie(Item item) {
-        if (item.quality < 50) {
-            item.quality = item.quality + 1;
-        }
-
     }
 
     private void updateNormalItem(Item item) {
