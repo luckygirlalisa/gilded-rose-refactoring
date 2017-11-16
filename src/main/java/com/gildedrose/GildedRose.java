@@ -49,26 +49,37 @@ class GildedRose {
     }
 
     private void updateBackstateAndAgeBrie(Item item) {
-        if (item.name.equals(AGED_BRIE)
-                || item.name.equals(BACKSTAGE_PASSES)) {
-            if (item.quality < 50) {
+        if (item.name.equals(BACKSTAGE_PASSES)) {
+            updateQualityWheQualityLessThan50ForBackStage(item);
+        }
+
+        if (item.name.equals(AGED_BRIE) ) {
+            updateQualityWheQualityLessThan50ForAgedBrie(item);
+        }
+    }
+
+    private void updateQualityWheQualityLessThan50ForBackStage(Item item) {
+        if (item.quality >= 50) {
+            return;
+        }
+
+        item.quality += 1;
+
+        if (item.quality < 50) {
+            if (item.sellIn < 11) {
                 item.quality = item.quality + 1;
-
-                if (item.name.equals(BACKSTAGE_PASSES)) {
-                    if (item.sellIn < 11) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
-
-                    if (item.sellIn < 6) {
-                        if (item.quality < 50) {
-                            item.quality = item.quality + 1;
-                        }
-                    }
-                }
+            }
+            if (item.sellIn < 6) {
+                item.quality = item.quality + 1;
             }
         }
+    }
+
+    private void updateQualityWheQualityLessThan50ForAgedBrie(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+        }
+
     }
 
     private void updateNormalItem(Item item) {
