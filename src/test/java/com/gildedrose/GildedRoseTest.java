@@ -21,7 +21,7 @@ public class GildedRoseTest {
         app.updateQuality();
 
         assertThat(items[0].sellIn, is(0));
-        assertThat(items[0].quality, is(19));
+        assertThat(items[0].getQuality(), is(19));
     }
 
     @Test
@@ -33,7 +33,7 @@ public class GildedRoseTest {
         app.updateQuality();
 
         assertThat(items[0].sellIn, is(-1));
-        assertThat(items[0].quality, is(18));
+        assertThat(items[0].getQuality(), is(18));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class GildedRoseTest {
         app.updateQuality();
 
         assertThat(items[0].sellIn, is(-1));
-        assertThat(items[0].quality, is(0));
+        assertThat(items[0].getQuality(), is(0));
     }
 
     @Test
@@ -58,7 +58,7 @@ public class GildedRoseTest {
         
 
         assertThat(items[0].sellIn, is(-1));
-        assertThat(items[0].quality, is(2));
+        assertThat(items[0].getQuality(), is(2));
     }
 
     @Test
@@ -70,7 +70,7 @@ public class GildedRoseTest {
         app.updateQuality();
 
         assertThat(items[0].sellIn, is(-2));
-        assertThat(items[0].quality, is(50));
+        assertThat(items[0].getQuality(), is(50));
     }
 
     @Test
@@ -82,7 +82,7 @@ public class GildedRoseTest {
         app.updateQuality();
 
         assertThat(items[0].sellIn, is(-1));
-        assertThat(items[0].quality, is(80));
+        assertThat(items[0].getQuality(), is(80));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class GildedRoseTest {
         app.updateQuality();
 
         assertThat(items[0].sellIn, is(10));
-        assertThat(items[0].quality, is(21));
+        assertThat(items[0].getQuality(), is(21));
     }
 
     @Test
@@ -106,7 +106,7 @@ public class GildedRoseTest {
         app.updateQuality();
 
         assertThat(items[0].sellIn, is(9));
-        assertThat(items[0].quality, is(22));
+        assertThat(items[0].getQuality(), is(22));
     }
 
     @Test
@@ -119,7 +119,7 @@ public class GildedRoseTest {
         app.updateQuality();
 
         assertThat(items[0].sellIn, is(4));
-        assertThat(items[0].quality, is(23));
+        assertThat(items[0].getQuality(), is(23));
     }
 
     @Test
@@ -131,7 +131,7 @@ public class GildedRoseTest {
         app.updateQuality();
 
         assertThat(items[0].sellIn, is(-1));
-        assertThat(items[0].quality, is(0));
+        assertThat(items[0].getQuality(), is(0));
     }
 
     @Test
@@ -144,7 +144,7 @@ public class GildedRoseTest {
         app.updateQuality();
 
         assertThat(items[0].sellIn, is(0));
-        assertThat(items[0].quality, is(50));
+        assertThat(items[0].getQuality(), is(50));
     }
 
 }

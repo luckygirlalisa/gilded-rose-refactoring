@@ -17,9 +17,9 @@ class GildedRose {
         List<Item> updatedItems = new ArrayList<>();
         for (Item item : items) {
             Item updatedItem = item;
-            updatedItem = updatedItem.qualityStrategy.updateQualityForNormalItem(updatedItem);
-            updatedItem = updatedItem.qualityStrategy.updateQualityForBackStage(updatedItem);
-            updatedItem = updatedItem.qualityStrategy.updateQualityForAgedBrie(updatedItem);
+            updatedItem = updatedItem.getQualityStrategy().updateQualityForNormalItem(updatedItem);
+            updatedItem = updatedItem.getQualityStrategy().updateQualityForBackStage(updatedItem);
+            updatedItem = updatedItem.getQualityStrategy().updateQualityForAgedBrie(updatedItem);
 
 
             updatedItem = updatedItem.updateSellInForNotSulfuras();

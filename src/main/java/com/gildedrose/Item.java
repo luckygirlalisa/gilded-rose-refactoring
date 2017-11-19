@@ -2,18 +2,18 @@ package com.gildedrose;
 
 public class Item {
 
-    public String name;
+    private String name;
 
     public int sellIn;
 
-    public int quality;
-    QualityStrategy qualityStrategy;
+    private int quality;
+    private QualityStrategy qualityStrategy;
 
     public Item(String name, int sellIn, int quality) {
-        this.name = name;
+        this.setName(name);
         this.sellIn = sellIn;
-        this.quality = quality;
-        qualityStrategy = initialQualityStrategy(name);
+        this.setQuality(quality);
+        setQualityStrategy(initialQualityStrategy(name));
     }
 
     private QualityStrategy initialQualityStrategy(String name) {
@@ -30,22 +30,45 @@ public class Item {
 
     @Override
    public String toString() {
-        return this.name + ", " + this.sellIn + ", " + this.quality;
+        return this.getName() + ", " + this.sellIn + ", " + this.getQuality();
     }
 
     Item updateSellInForNotSulfuras() {
-        if (!name.equals(GildedRose.SULFURAS_HAND)) {
+        if (!getName().equals(GildedRose.SULFURAS_HAND)) {
             sellIn = sellIn - 1;
         }
         return this;
     }
 
     Item updateQualityWhenNoSellin() {
-        qualityStrategy.updateQualityForNormalItemWhenNoSellIn(this);
-        qualityStrategy.updateQualityForBackstagePassesWithNoSellIn(this);
-        qualityStrategy.udpateQualityForAgedBrieWithNoSellIn(this);
+        getQualityStrategy().updateQualityForNormalItemWhenNoSellIn(this);
+        getQualityStrategy().updateQualityForBackstagePassesWithNoSellIn(this);
+        getQualityStrategy().udpateQualityForAgedBrieWithNoSellIn(this);
 
         return this;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getQuality() {
+        return quality;
+    }
+
+    public void setQuality(int quality) {
+        this.quality = quality;
+    }
+
+    public QualityStrategy getQualityStrategy() {
+        return qualityStrategy;
+    }
+
+    public void setQualityStrategy(QualityStrategy qualityStrategy) {
+        this.qualityStrategy = qualityStrategy;
+    }
 }
