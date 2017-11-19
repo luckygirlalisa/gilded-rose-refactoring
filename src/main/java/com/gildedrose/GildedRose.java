@@ -17,11 +17,11 @@ class GildedRose {
         List<Item> updatedItems = new ArrayList<>();
         for (Item item : items) {
             Item updatedItem = item;
-            updatedItem = updatedItem.updateNormalItem();
+            updatedItem = updatedItem.updateQualityForNormalItem();
             updatedItem = updatedItem.updateQualityForBackStage();
             updatedItem = updatedItem.updateQualityForAgedBrie();
 
-            updatedItem = updatedItem.updateSellInForSulfuras();
+            updatedItem = updatedItem.updateSellInForNotSulfuras();
 
             updatedItems.add(updatedItem.updateWhenNoSellin());
         }

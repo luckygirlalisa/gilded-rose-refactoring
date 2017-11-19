@@ -19,14 +19,18 @@ public class Item {
         return this.name + ", " + this.sellIn + ", " + this.quality;
     }
 
-    Item updateNormalItem() {
-        if (!name.equals(GildedRose.AGED_BRIE) && !name.equals(GildedRose.BACKSTAGE_PASSES) && !name.equals(GildedRose.SULFURAS_HAND)) {
+    Item updateQualityForNormalItem() {
+        if (isNormalItem()) {
             if (quality > 0) {
                 quality -= 1;
             }
         }
 
         return this;
+    }
+
+    private boolean isNormalItem() {
+        return !name.equals(GildedRose.AGED_BRIE) && !name.equals(GildedRose.BACKSTAGE_PASSES) && !name.equals(GildedRose.SULFURAS_HAND);
     }
 
     Item updateQualityForBackStage() {
@@ -53,7 +57,7 @@ public class Item {
         return this;
     }
 
-    Item updateSellInForSulfuras() {
+    Item updateSellInForNotSulfuras() {
         if (!name.equals(GildedRose.SULFURAS_HAND)) {
             sellIn = sellIn - 1;
         }
@@ -61,19 +65,30 @@ public class Item {
     }
 
     Item updateWhenNoSellin() {
-        if (!name.equals(GildedRose.AGED_BRIE) && sellIn < 0
-                && !name.equals(GildedRose.BACKSTAGE_PASSES) && !name.equals(GildedRose.SULFURAS_HAND) && quality > 0) {
-            quality = quality - 1;
-        }
-        if (sellIn < 0 && name.equals(GildedRose.BACKSTAGE_PASSES)) {
-            quality = 0;
-        }
+        updateQualityForNormalItemWhenNoSellIn();
+        updateQualityForBackstagePassesWithNoSellIn();
+        udpateQualityForAgedBrieWithNoSellIn();
+
+        return this;
+    }
+
+    private void udpateQualityForAgedBrieWithNoSellIn() {
         if (name.equals(GildedRose.AGED_BRIE) && sellIn < 0){
             if (quality < 50) {
                 quality = quality + 1;
             }
         }
+    }
 
-        return this;
+    private void updateQualityForBackstagePassesWithNoSellIn() {
+        if (name.equals(GildedRose.BACKSTAGE_PASSES) && sellIn < 0) {
+            quality = 0;
+        }
+    }
+
+    private void updateQualityForNormalItemWhenNoSellIn() {
+        if (isNormalItem() && sellIn < 0 && quality > 0) {
+            quality = quality - 1;
+        }
     }
 }
