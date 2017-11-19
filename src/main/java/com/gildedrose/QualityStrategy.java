@@ -6,6 +6,17 @@ public class QualityStrategy {
         return !item.getName().equals(GildedRose.AGED_BRIE) && !item.getName().equals(GildedRose.BACKSTAGE_PASSES) && !item.getName().equals(GildedRose.SULFURAS_HAND);
     }
 
+    Item updateQuality(Item item) {
+        if (isNormalItem(item)) {
+            updateQualityForNormalItem(item);
+        } else if (item.getName().equals(GildedRose.BACKSTAGE_PASSES)) {
+            updateQualityForBackStage(item);
+        } else if (item.getName().equals(GildedRose.AGED_BRIE)) {
+            updateQualityForAgedBrie(item);
+        }
+
+        return item;
+    }
     Item updateQualityForNormalItem(Item item) {
         if (isNormalItem(item)) {
             if (item.getQuality() > 0) {
