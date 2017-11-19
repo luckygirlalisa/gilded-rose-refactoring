@@ -17,13 +17,13 @@ class GildedRose {
         List<Item> updatedItems = new ArrayList<>();
         for (Item item : items) {
             Item updatedItem = item;
-            updatedItem = updatedItem.updateQualityForNormalItem();
-            updatedItem = updatedItem.updateQualityForBackStage();
-            updatedItem = updatedItem.updateQualityForAgedBrie();
+            updatedItem = updatedItem.qualityStrategy.updateQualityForNormalItem(updatedItem);
+            updatedItem = updatedItem.qualityStrategy.updateQualityForBackStage(updatedItem);
+            updatedItem = updatedItem.qualityStrategy.updateQualityForAgedBrie(updatedItem);
+
 
             updatedItem = updatedItem.updateSellInForNotSulfuras();
-
-            updatedItems.add(updatedItem.updateWhenNoSellin());
+            updatedItems.add(updatedItem.updateQualityWhenNoSellin());
         }
     }
 
