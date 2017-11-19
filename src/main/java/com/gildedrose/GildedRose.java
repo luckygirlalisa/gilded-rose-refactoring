@@ -20,7 +20,7 @@ class GildedRose {
             updatedItem = updatedItem.getQualityStrategy().updateQuality(item);
 
             updatedItem = updatedItem.updateSellInForNotSulfuras();
-            updatedItems.add(updatedItem.updateQualityWhenNoSellin());
+            updatedItems.add(updatedItem.qualityStrategy.updateQualityWhenNoSellin(updatedItem));
         }
     }
 

@@ -1,6 +1,7 @@
 package com.gildedrose;
 
 public class BackstagePassesStrategy extends QualityStrategy {
+    @Override
     Item updateQuality(Item item) {
         if (item.getName().equals(GildedRose.BACKSTAGE_PASSES)) {
             if (item.getQuality() < 50) {
@@ -12,6 +13,15 @@ public class BackstagePassesStrategy extends QualityStrategy {
                     item.setQuality(item.getQuality() + incrementWhenSellin6days);
                 }
             }
+        }
+
+        return item;
+    }
+
+    @Override
+    Item updateQualityWhenNoSellin(Item item) {
+        if (item.getName().equals(GildedRose.BACKSTAGE_PASSES) && item.sellIn < 0) {
+            item.setQuality(0);
         }
 
         return item;

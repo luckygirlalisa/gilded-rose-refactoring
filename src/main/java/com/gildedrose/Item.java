@@ -7,7 +7,7 @@ public class Item {
     public int sellIn;
 
     private int quality;
-    private QualityStrategy qualityStrategy;
+    QualityStrategy qualityStrategy;
 
     public Item(String name, int sellIn, int quality) {
         this.setName(name);
@@ -37,14 +37,6 @@ public class Item {
         if (!getName().equals(GildedRose.SULFURAS_HAND)) {
             sellIn = sellIn - 1;
         }
-        return this;
-    }
-
-    Item updateQualityWhenNoSellin() {
-        getQualityStrategy().updateQualityForNormalItemWhenNoSellIn(this);
-        getQualityStrategy().updateQualityForBackstagePassesWithNoSellIn(this);
-        getQualityStrategy().udpateQualityForAgedBrieWithNoSellIn(this);
-
         return this;
     }
 
