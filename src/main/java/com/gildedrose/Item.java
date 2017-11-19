@@ -20,11 +20,9 @@ public class Item {
     }
 
     Item updateNormalItem() {
-        if (!name.equals(GildedRose.AGED_BRIE) && !name.equals(GildedRose.BACKSTAGE_PASSES)) {
+        if (!name.equals(GildedRose.AGED_BRIE) && !name.equals(GildedRose.BACKSTAGE_PASSES) && !name.equals(GildedRose.SULFURAS_HAND)) {
             if (quality > 0) {
-                if (!name.equals(GildedRose.SULFURAS_HAND)) {
-                    quality -= 1;
-                }
+                quality -= 1;
             }
         }
 
@@ -32,13 +30,15 @@ public class Item {
     }
 
     Item updateQualityForBackStage() {
-        if (quality < 50 && name.equals(GildedRose.BACKSTAGE_PASSES)) {
-            quality += 1;
-
+        if (name.equals(GildedRose.BACKSTAGE_PASSES)) {
             if (quality < 50) {
-                int incrementWhenSellin11days = sellIn < 11 ? 1 : 0;
-                int incrementWhenSellin6days = sellIn < 6 ? 1 + incrementWhenSellin11days: incrementWhenSellin11days;
-                quality += incrementWhenSellin6days;
+                quality += 1;
+
+                if (quality < 49) {
+                    int incrementWhenSellin11days = sellIn < 11 ? 1 : 0;
+                    int incrementWhenSellin6days = sellIn < 6 ? 1 + incrementWhenSellin11days: incrementWhenSellin11days;
+                    quality += incrementWhenSellin6days;
+                }
             }
         }
 
@@ -61,21 +61,16 @@ public class Item {
     }
 
     Item updateWhenNoSellin() {
-        if (sellIn < 0) {
-            if (!name.equals(GildedRose.AGED_BRIE)) {
-                if (!name.equals(GildedRose.BACKSTAGE_PASSES)) {
-                    if (quality > 0) {
-                        if (!name.equals("Sulfuras, Hand of Ragnaros")) {
-                            quality = quality - 1;
-                        }
-                    }
-                } else {
-                    quality = 0;
-                }
-            } else {
-                if (quality < 50) {
-                    quality = quality + 1;
-                }
+        if (!name.equals(GildedRose.AGED_BRIE) && sellIn < 0
+                && !name.equals(GildedRose.BACKSTAGE_PASSES) && !name.equals(GildedRose.SULFURAS_HAND) && quality > 0) {
+            quality = quality - 1;
+        }
+        if (sellIn < 0 && name.equals(GildedRose.BACKSTAGE_PASSES)) {
+            quality = 0;
+        }
+        if (name.equals(GildedRose.AGED_BRIE) && sellIn < 0){
+            if (quality < 50) {
+                quality = quality + 1;
             }
         }
 
