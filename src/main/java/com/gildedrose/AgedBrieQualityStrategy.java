@@ -12,10 +12,8 @@ public class AgedBrieQualityStrategy extends QualityStrategy {
 
     @Override
     Item updateQualityWhenNoSellin(Item item) {
-        if (item.getName().equals(GildedRose.AGED_BRIE) && item.sellIn < 0){
-            if (item.getQuality() < 50) {
-                item.setQuality(item.getQuality() + 1);
-            }
+        if (item.sellIn < 0 && item.getQuality() < 50){
+            item.setQuality(item.getQuality() + 1);
         }
 
         return item;
